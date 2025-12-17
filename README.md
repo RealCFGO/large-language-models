@@ -1,48 +1,48 @@
-# LLM Tokenization Visualizer
+# LLM Tokenisering Visualizer
 
-[Also available in Danish](README_da.md)
+[Also available in English](README.md)
 
-This repository contains a small, focused Streamlit application designed to examine how Large Language Models tokenize text and perform next-token prediction. The project is intended as a technical and educational prototype rather than a full production system, with emphasis on transparency and inspectability of core mechanisms.
+Dette repository indeholder en lille, fokuseret Streamlit-applikation designet til at undersøge, hvordan store sprogmodeller (LLMs) tokeniserer tekst og foretager next-token forudsigelser. Projektet er beregnet som et teknisk og uddannelsesmæssigt prototypeværktøj snarere end et fuldt produktionssystem, med fokus på gennemsigtighed og inspektion af kernemekanismer.
 
-## Scope and Design Choices
+## Omfang og Designvalg
 
-The application uses a **fixed model**, GPT-2 (small), to ensure reproducibility and to avoid confounding effects from comparing different model architectures. GPT-2 is used exclusively for next-token prediction, as it is a causal language model and therefore suitable for sequential generation.
+Applikationen bruger en **fast model**, GPT-2 (small), for at sikre reproducerbarhed og undgå forvirring fra sammenligning af forskellige modelarkitekturer. GPT-2 bruges udelukkende til next-token forudsigelse, da det er en kausal sprogmodel og derfor egnet til sekventiel generering.
 
-Two tokenization strategies are supported for comparison:
+To tokeniseringsstrategier understøttes for sammenligning:
 
-- **Byte Pair Encoding (BPE)** via `GPT2TokenizerFast`
+- **Byte Pair Encoding (BPE)** via `GPT2TokenizerFast`  
 - **WordPiece** via `BertTokenizerFast`
 
-WordPiece is used strictly for analytical and visual comparison. All probability calculations and predictions are performed using GPT-2’s BPE tokenizer to maintain model compatibility.
+WordPiece bruges kun til analytisk og visuel sammenligning. Alle sandsynlighedsberegninger og forudsigelser udføres med GPT-2’s BPE-tokenizer for at bevare modelkompatibilitet.
 
-## Core Functionality
+## Kernefunktionalitet
 
-The application exposes two tightly coupled components:
+Applikationen indeholder to tæt sammenkoblede komponenter:
 
-### Tokenization Inspection
+### Tokeniseringsinspektion
 
-Input text is tokenized and rendered directly in the interface. Each token is displayed inline with visual differentiation based on its role, including word starts, subword continuations, punctuation, and special tokens. Token indices and token IDs are available in tabular form, along with a mapping that shows how many tokens each word is split into. This makes differences in tokenization granularity immediately observable, particularly for longer or morphologically complex words.
+Inputtekst tokeniseres og vises direkte i interfacet. Hver token vises inline med visuel differentiering baseret på dens rolle, inklusiv ordstart, subword-fortsættelser, tegnsætning og specialtegn. Token-indekser og token-IDs er tilgængelige i tabelform, sammen med et kort, der viser, hvor mange tokens hvert ord er delt i. Dette gør forskelle i tokeniseringsgranularitet umiddelbart observerbare, især for længere eller morfologisk komplekse ord.
 
-### Next-Token Prediction
+### Next-Token Forudsigelse
 
-For a given input sequence, the model computes logits for the next token position. These logits are transformed into probabilities using softmax, and the top-N most likely tokens are displayed. The distribution is shown both numerically and graphically, making it clear that generation is probabilistic rather than deterministic.
+For en given inputsekvens beregner modellen logits for næste token-position. Disse logits omdannes til sandsynligheder via softmax, og de top-N mest sandsynlige tokens vises. Fordelingen vises både numerisk og grafisk, hvilket tydeligt viser, at generering er probabilistisk snarere end deterministisk.
 
-Two sampling-related parameters are exposed:
+To sampling-relaterede parametre kan justeres:
 
-- **Temperature**, which scales the logits and controls how concentrated or diffuse the probability distribution is.
-- **Repetition penalty**, which reduces the likelihood of tokens that already appear in the input.
+- **Temperature**, som skalerer logits og styrer, hvor koncentreret eller diffus sandsynlighedsfordelingen er.  
+- **Repetition penalty**, som reducerer sandsynligheden for tokens, der allerede forekommer i input.
 
-Adjusting these parameters updates the predictions in real time, allowing direct inspection of their effect on model behavior.
+Justering af disse parametre opdaterer forudsigelserne i realtid, hvilket giver direkte indsigt i deres effekt på modeladfærd.
 
-## Technical Structure
+## Teknisk Struktur
 
-The codebase is structured around clear separation of concerns:
+Kodebasen er struktureret omkring klar separation af funktioner:
 
-- Model and tokenizer loading is isolated and cached to avoid redundant computation.
-- Tokenization logic, token classification, and visualization are encapsulated in dedicated functions.
-- Probability computation and sampling logic are kept separate from the UI layer.
-- Visualization is handled via Plotly, while Streamlit is used solely as a lightweight interface layer.
+- Model- og tokenizer-loading er isoleret og cached for at undgå redundant beregning.  
+- Tokeniseringslogik, token-klassifikation og visualisering er indkapslet i dedikerede funktioner.  
+- Sandsynlighedsberegning og sampling-logik holdes adskilt fra UI-laget.  
+- Visualisering håndteres via Plotly, mens Streamlit kun bruges som et letvægts-interface.
 
-## Intended Use
+## Tiltenkt Brug
 
-The project is intended for analytical and educational purposes, particularly in contexts where understanding parsing, subword tokenization, and next-token prediction is more important than raw generation quality. It is suitable for demonstrations, coursework, and exploratory analysis of LLM behavior at the token level.
+Projektet er beregnet til analytiske og uddannelsesmæssige formål, især i sammenhænge, hvor forståelse af parsing, subword-tokenisering og next-token forudsigelse er vigtigere end rå genereringskvalitet. Det egner sig til demonstrationer, kursusarbejde og eksplorativ analyse af LLM-adfærd på token-niveau.
