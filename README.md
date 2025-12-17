@@ -1,5 +1,7 @@
 # LLM Tokenization Visualizer
 
+[Also available in Danish](README_da.md)
+
 This repository contains a small, focused Streamlit application designed to examine how Large Language Models tokenize text and perform next-token prediction. The project is intended as a technical and educational prototype rather than a full production system, with emphasis on transparency and inspectability of core mechanisms.
 
 ## Scope and Design Choices
